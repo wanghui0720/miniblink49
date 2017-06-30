@@ -3,7 +3,8 @@
 #include "cmdline.h"
 #include "path.h"
 
-#include <wke.h>
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -12,6 +13,9 @@
 
 #include <shlwapi.h>
 #pragma comment(lib, "shlwapi.lib")
+
+#include <wke.h>
+#pragma comment(lib, "miniblink.lib")
 
 
 BOOL FixupHtmlFileUrl(LPCWSTR pathOption, LPWSTR urlBuffer, size_t bufferSize)

@@ -15,5 +15,7 @@
     <LocalDebuggerCommandArguments>-x http://www.baidu.com</LocalDebuggerCommandArguments>
     <LocalDebuggerWorkingDirectory>$(SolutionDir)..\out\$(Configuration)\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>
+    </LocalDebuggerEnvironment>
   </PropertyGroup>
 </Project>

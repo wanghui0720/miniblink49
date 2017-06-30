@@ -25,7 +25,7 @@
 #define WKE_EXTERN_C
 #endif
 
-
+#define BUILDING_wke
 #if defined(BUILDING_wke)
 #   define WKE_API WKE_EXTERN_C __declspec(dllexport)
 #else
