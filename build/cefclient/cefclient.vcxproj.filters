@@ -516,6 +516,12 @@
     <ClInclude Include="..\..\cef\libcef_dll\wrapper\cef_browser_info_map.h">
       <Filter>libcef_dll\wrapper</Filter>
     </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -987,6 +993,12 @@
   <ItemGroup>
     <ResourceCompile Include="..\..\cef\tests\cefclient\resources\win\cefclient.rc">
       <Filter>resources\win</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="cefclient1.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="cefclient2.rc">
+      <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>

@@ -87,6 +87,14 @@ void WebPage::setViewportSize(const IntSize& size)
     m_pageImpl->setViewportSize(size);
 }
 
+void WebPage::setViewportSize(const int width, const int height)
+{
+    IntSize size ;
+    size.setWidth(width);
+    size.setHeight(height);
+    m_pageImpl->setViewportSize(size);
+}
+
 // LocalFrame* WebPage::localFrame()
 // {
 //     return m_pageImpl->m_webViewImpl->mainFrameImpl()->frame();

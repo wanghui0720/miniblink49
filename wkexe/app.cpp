@@ -15,7 +15,6 @@
 #pragma comment(lib, "shlwapi.lib")
 
 #include <wke.h>
-#pragma comment(lib, "miniblink.lib")
 
 
 BOOL FixupHtmlFileUrl(LPCWSTR pathOption, LPWSTR urlBuffer, size_t bufferSize)
@@ -204,7 +203,7 @@ BOOL CreateWebWindow(Application* app)
 
     wkeMoveToCenter(app->window);
     wkeLoadURLW(app->window, app->url);
-
+    wkeResize(app->window, 1024,800);
     return TRUE;
 }
 

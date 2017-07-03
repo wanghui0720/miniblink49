@@ -88,6 +88,7 @@ public:
 
     blink::IntSize viewportSize() const;
     void setViewportSize(const blink::IntSize& size);
+    void setViewportSize(const int width, const int height);
 
     blink::IntRect caretRect();
 

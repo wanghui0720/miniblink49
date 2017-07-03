@@ -6,8 +6,9 @@
     <LocalDebuggerCommandArguments>--url=http://www.codes51.com</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommand>E:\mycode\miniblink49\trunk\out\Debug\cefclient.exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>--url=file:///E:/test/xicp/test.htm</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommand>E:\miniblink49\out\Debug\cefclient.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments>--url=www.baidu.com</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerAttach>true</LocalDebuggerAttach>
   </PropertyGroup>
 </Project>

@@ -130,7 +130,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Opengl32.lib;libcurl.lib;libjpeg.lib;libpng.lib;libxml.lib;node.lib;openssl.lib;ots.lib;skia.lib;v8_4_8.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;libcurl.lib;libjpeg.lib;libpng.lib;libxml.lib;node.lib;openssl.lib;ots.lib;skia.lib;v8_4_8.lib;zlib.lib;miniblink.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\out\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
@@ -404,6 +404,8 @@
     <ClInclude Include="..\..\cef\tests\cefclient\renderer\performance_test_setup.h" />
     <ClInclude Include="cefclient.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="resource2.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -1496,6 +1498,8 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\cef\tests\cefclient\resources\win\cefclient.rc" />
+    <ResourceCompile Include="cefclient1.rc" />
+    <ResourceCompile Include="cefclient2.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\cef\tests\cefclient\resources\logo.png" />
