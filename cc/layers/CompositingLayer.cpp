@@ -461,7 +461,7 @@ void CompositingLayer::drawToCanvas(LayerTreeHost* host, blink::WebCanvas* canva
         //paint.setColor(0xffffffff);
         paint.setFilterQuality(kHigh_SkFilterQuality);
 
-#if 0 // debug
+#if 1 // debug
         OwnPtr<blink::GraphicsContext> context = blink::GraphicsContext::deprecatedCreateWithCanvas(canvas, blink::GraphicsContext::NothingDisabled);
         context->setStrokeStyle(blink::SolidStroke);
         context->setStrokeThickness(1);

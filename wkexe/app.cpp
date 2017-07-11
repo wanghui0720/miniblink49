@@ -202,7 +202,8 @@ BOOL CreateWebWindow(Application* app)
 	wkeOnLoadUrlEnd(app->window, HandleLoadUrlEnd, app);
 
     wkeMoveToCenter(app->window);
-    wkeLoadURLW(app->window, app->url);
+    wkeLoadFile(app->window, "C:/Users/HuiWang/Desktop/test.html");
+  //  wkeLoadURLW(app->window, app->url);
     wkeResize(app->window, 1024,800);
     return TRUE;
 }

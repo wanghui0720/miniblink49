@@ -202,6 +202,7 @@ void CWebView::loadFile(const wchar_t* filename)
         ::PathRemoveFileSpecW(filenameBuffer.data());
         ::PathAppend(filenameBuffer.data(), filenameUTF8.charactersWithNullTermination().data());
     }
+    ::PathAppend(filenameBuffer.data(), filenameUTF8.charactersWithNullTermination().data());
     loadURL(filenameBuffer.data());
 }
 
