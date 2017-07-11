@@ -201,8 +201,9 @@ void CWebView::loadFile(const wchar_t* filename)
         ::GetModuleFileNameW(NULL, filenameBuffer.data(), MAX_PATH);
         ::PathRemoveFileSpecW(filenameBuffer.data());
         ::PathAppend(filenameBuffer.data(), filenameUTF8.charactersWithNullTermination().data());
+    }else {
+        ::PathAppend(filenameBuffer.data(), filenameUTF8.charactersWithNullTermination().data());
     }
-    ::PathAppend(filenameBuffer.data(), filenameUTF8.charactersWithNullTermination().data());
     loadURL(filenameBuffer.data());
 }
 
