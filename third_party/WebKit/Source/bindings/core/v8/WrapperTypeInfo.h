@@ -57,10 +57,10 @@ typedef void (*ResolveWrapperReachabilityFunction)(v8::Isolate*, ScriptWrappable
 typedef void (*PreparePrototypeObjectFunction)(v8::Isolate*, v8::Local<v8::Object>, v8::Local<v8::FunctionTemplate>);
 typedef void (*InstallConditionallyEnabledPropertiesFunction)(v8::Local<v8::Object>, v8::Isolate*);
 
-inline void setObjectGroup(v8::Isolate* isolate, ScriptWrappable* scriptWrappable, const v8::Persistent<v8::Object>& wrapper)
+/*inline void setObjectGroup(v8::Isolate* isolate, ScriptWrappable* scriptWrappable, const v8::Persistent<v8::Object>& wrapper)
 {
     isolate->SetObjectGroupId(wrapper, v8::UniqueId(reinterpret_cast<intptr_t>(scriptWrappable)));
-}
+}*/
 
 // This struct provides a way to store a bunch of information that is helpful when unwrapping
 // v8 objects. Each v8 bindings class has exactly one static WrapperTypeInfo member, so
@@ -163,13 +163,13 @@ struct WrapperTypeInfo {
 
     EventTarget* toEventTarget(v8::Local<v8::Object>) const;
 
-    void visitDOMWrapper(v8::Isolate* isolate, ScriptWrappable* scriptWrappable, const v8::Persistent<v8::Object>& wrapper) const
+    /*void visitDOMWrapper(v8::Isolate* isolate, ScriptWrappable* scriptWrappable, const v8::Persistent<v8::Object>& wrapper) const
     {
         if (!visitDOMWrapperFunction)
             setObjectGroup(isolate, scriptWrappable, wrapper);
         else
             visitDOMWrapperFunction(isolate, scriptWrappable, wrapper);
-    }
+    }*/
 
     // This field must be the first member of the struct WrapperTypeInfo. This is also checked by a static_assert() below.
     const gin::GinEmbedder ginEmbedder;
