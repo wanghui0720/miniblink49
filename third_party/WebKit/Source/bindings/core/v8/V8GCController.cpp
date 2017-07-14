@@ -57,7 +57,7 @@
 namespace blink {
 
 // FIXME: This should use opaque GC roots.
-/*static void addReferencesForNodeWithEventListeners(v8::Isolate* isolate, Node* node, const v8::Persistent<v8::Object>& wrapper)
+static void addReferencesForNodeWithEventListeners(v8::Isolate* isolate, Node* node, const v8::Persistent<v8::Object>& wrapper)
 {
     ASSERT(node->hasEventListeners());
 
@@ -71,7 +71,7 @@ namespace blink {
 
         isolate->SetReference(wrapper, v8::Persistent<v8::Value>::Cast(v8listener->existingListenerObjectPersistentHandle()));
     }
-}*/
+}
 
 Node* V8GCController::opaqueRootForGC(v8::Isolate*, Node* node)
 {

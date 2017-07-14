@@ -133,7 +133,7 @@ public:
         return containsWrapper();
     }
 
-  /*  void markAsDependentGroup(ScriptWrappable* groupRoot, v8::Isolate* isolate)
+    void markAsDependentGroup(ScriptWrappable* groupRoot, v8::Isolate* isolate)
     {
         ASSERT(containsWrapper());
         ASSERT(groupRoot && groupRoot->containsWrapper());
@@ -151,7 +151,7 @@ public:
     {
         isolate->SetReference(parent, m_wrapper);
         return ;
-    }*/
+    }
 
     bool containsWrapper() const { return !m_wrapper.IsEmpty(); }
 
