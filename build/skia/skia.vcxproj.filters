@@ -2528,5 +2528,11 @@
     <ClCompile Include="..\..\third_party\skia\src\sfnt\SkOTUtils.cpp">
       <Filter>src\sfnt</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\third_party\skia\src\images\SkImageDecoder_libjpeg.cpp">
+      <Filter>src\images</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\skia\src\images\SkJpegUtility.cpp">
+      <Filter>src\images</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -221,7 +221,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>SK_GDI_ALWAYS_USE_TEXTMETRICS_FOR_FONT_METRICS;SK_USE_DISCARDABLE_SCALEDIMAGECACHE;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../third_party/skia/include/codec;../../third_party/skia/include/config;../../third_party/skia/include/core;../../third_party/skia/include/device;../../third_party/skia/include/effects;../../third_party/skia/include/images;../../third_party/skia/include/pathops;../../third_party/skia/include/pipe;../../third_party/skia/include/ports;../../third_party/skia/include/utils/win;../../third_party/skia/include/utils;../../third_party/skia/src/image;../../third_party/skia/src/core;../../third_party/skia/src/sfnt;../../third_party/skia/src/lazy;../../third_party/skia/src/utils;../../third_party/skia/src/opts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\miniblink49\third_party\libjpeg;../../third_party/skia/include/codec;../../third_party/skia/include/config;../../third_party/skia/include/core;../../third_party/skia/include/device;../../third_party/skia/include/effects;../../third_party/skia/include/images;../../third_party/skia/include/pathops;../../third_party/skia/include/pipe;../../third_party/skia/include/ports;../../third_party/skia/include/utils/win;../../third_party/skia/include/utils;../../third_party/skia/src/image;../../third_party/skia/src/core;../../third_party/skia/src/sfnt;../../third_party/skia/src/lazy;../../third_party/skia/src/utils;../../third_party/skia/src/opts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>false</ExceptionHandling>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -240,11 +240,19 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>libjpeg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\miniblink49\out\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\third_party\skia\include\core\SkTRegistry.h" />
     <ClInclude Include="..\..\third_party\skia\include\animator\SkAnimator.h" />
     <ClInclude Include="..\..\third_party\skia\include\animator\SkAnimatorView.h" />
     <ClInclude Include="..\..\third_party\skia\include\codec\SkCodec.h" />
@@ -344,7 +352,7 @@
     <ClInclude Include="..\..\third_party\skia\include\core\SkTime.h" />
     <ClInclude Include="..\..\third_party\skia\include\core\SkTInternalLList.h" />
     <ClInclude Include="..\..\third_party\skia\include\core\SkTLazy.h" />
-    <ClInclude Include="..\..\third_party\skia\include\core\SkTRegistry.h" />
+
     <ClInclude Include="..\..\third_party\skia\include\core\SkTSearch.h" />
     <ClInclude Include="..\..\third_party\skia\include\core\SkTypeface.h" />
     <ClInclude Include="..\..\third_party\skia\include\core\SkTypes.h" />
@@ -942,11 +950,11 @@
     <ClCompile Include="..\..\third_party\skia\src\images\SkImageDecoder.cpp" />
     <ClCompile Include="..\..\third_party\skia\src\images\SkImageDecoder_FactoryDefault.cpp" />
     <ClCompile Include="..\..\third_party\skia\src\images\SkImageDecoder_FactoryRegistrar.cpp" />
-    <ClCompile Include="..\..\third_party\skia\src\images\SkImageDecoder_libbmp.cpp" />
-    <ClCompile Include="..\..\third_party\skia\src\images\SkImageDecoder_wbmp.cpp" />
+
     <ClCompile Include="..\..\third_party\skia\src\images\SkImageEncoder.cpp" />
     <ClCompile Include="..\..\third_party\skia\src\images\SkImageEncoder_argb.cpp" />
     <ClCompile Include="..\..\third_party\skia\src\images\SkImageEncoder_Factory.cpp" />
+    <ClCompile Include="..\..\third_party\skia\src\images\SkJpegUtility.cpp" />
     <ClCompile Include="..\..\third_party\skia\src\images\SkMovie.cpp" />
     <ClCompile Include="..\..\third_party\skia\src\images\SkPageFlipper.cpp" />
     <ClCompile Include="..\..\third_party\skia\src\images\SkScaledBitmapSampler.cpp" />
@@ -1051,6 +1059,9 @@
     <ClCompile Include="..\..\third_party\skia\src\utils\SkThreadUtils_win.cpp" />
     <ClCompile Include="..\..\third_party\skia\src\utils\win\SkHRESULT.cpp" />
     <ClCompile Include="..\..\third_party\skia\src\utils\win\SkIStream.cpp" />
+	<ClCompile Include="..\..\third_party\skia\src\images\SkImageDecoder_libbmp.cpp" />
+    <ClCompile Include="..\..\third_party\skia\src\images\SkImageDecoder_libjpeg.cpp" />
+    <ClCompile Include="..\..\third_party\skia\src\images\SkImageDecoder_wbmp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

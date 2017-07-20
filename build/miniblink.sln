@@ -17,6 +17,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "miniblink", "miniblink\mini
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "skia", "skia\skia.vcxproj", "{3B6807E7-4125-4892-8F4D-568B61462CAF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9785535B-7FBE-49A2-9816-D7429D9A78ED} = {9785535B-7FBE-49A2-9816-D7429D9A78ED}
+		{B8E58962-4E2E-4526-BECB-5F8F5AFA53B4} = {B8E58962-4E2E-4526-BECB-5F8F5AFA53B4}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cefclient", "cefclient\cefclient.vcxproj", "{A14DB738-9B81-42E4-8405-0FDA19DCB720}"
 EndProject
