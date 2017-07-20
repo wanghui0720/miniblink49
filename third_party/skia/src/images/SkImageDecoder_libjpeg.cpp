@@ -12,7 +12,7 @@
 #include "SkColorPriv.h"
 #include "SkDither.h"
 #include "SkScaledBitmapSampler.h"
-#include "SkStream.h"
+#include "SkStream.h";
 #include "SkTemplates.h"
 #include "SkTime.h"
 #include "SkUtils.h"
@@ -1426,7 +1426,7 @@ static bool is_jpeg(SkStreamRewindable* stream) {
     size_t len = stream->read(buffer, HEADER_SIZE);
 
     if (len != HEADER_SIZE) {
-        return false;   // can't read enough
+        return false;   // can't read enoughskjpeg_error_exit
     }
     if (memcmp(buffer, gHeader, HEADER_SIZE)) {
         return false;

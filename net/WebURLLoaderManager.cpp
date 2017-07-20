@@ -1124,6 +1124,7 @@ void WebURLLoaderManager::initializeHandle(WebURLLoaderInternal* job)
     curl_easy_setopt(d->m_handle, CURLOPT_DNS_CACHE_TIMEOUT, 60 * 5); // 5 minutes
     curl_easy_setopt(d->m_handle, CURLOPT_PROTOCOLS, allowedProtocols);
     curl_easy_setopt(d->m_handle, CURLOPT_REDIR_PROTOCOLS, allowedProtocols);
+   
     //setSSLClientCertificate(job);
 
 //     if (ignoreSSLErrors)
@@ -1169,6 +1170,7 @@ void WebURLLoaderManager::initializeHandle(WebURLLoaderInternal* job)
         curl_easy_setopt(d->m_handle, CURLOPT_HTTPHEADER, headers);
         d->m_customHeaders = headers;
     }
+    curl_easy_setopt(d->m_handle, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
 
     applyAuthenticationToRequest(job, job->firstRequest());
 

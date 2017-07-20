@@ -137,6 +137,7 @@ public:
     int64 frontRasteringIndex();
     void popRasteringIndex();
 
+    bool canRecordActions() const;
     void beginRecordActions();
     void endRecordActions();
 
@@ -165,6 +166,7 @@ public:
     bool isLayerTreeDirty() const;
 
 private:
+    void requestPaintToMemoryCanvasInUiThread(const blink::IntRect& r);
     void applyActionsInCompositeThread(bool needCheck);
     void drawFrameInCompositeThread();
     void paintToMemoryCanvasInUiThread(const blink::IntRect& paintRect);
@@ -220,10 +222,14 @@ private:
     //SkCanvas* m_memoryCanvasForUi;
     //SkCanvas* m_memoryCanvasInUiThread;
 
-    double m_lastDrawTime;
+   // double m_lastDrawTime;
+    double m_lastCompositeTime;
+    double m_lastPaintTime;
 
     static const int m_paintMessageQueueSize = 200;
-    Vector<blink::IntRect> m_dirtyRects;
+    //Vector<blink::IntRect> m_dirtyRects;
+    Vector<blink::IntRect> m_dirtyRectsForComposite;
+    Vector<blink::IntRect> m_dirtyRectsForUi;
     int m_postpaintMessageCount;
     int m_drawFrameCount;
     int m_drawFrameFinishCount;
@@ -235,7 +241,9 @@ private:
         WrapSelfForUiThread(LayerTreeHost* host)
             : m_host(host) { }
         LayerTreeHost* m_host;
-        void paintToMemoryCanvasInUiThread(const blink::IntRect& paintRect);
+        //void paintToMemoryCanvasInUiThread(const blink::IntRect& paintRect);
+        void paintInUiThread();
+        void endPaint();
     };
     friend WrapSelfForUiThread;
     std::set<WrapSelfForUiThread*> m_wrapSelfForUiThreads;

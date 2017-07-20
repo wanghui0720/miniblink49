@@ -18,7 +18,7 @@
 #endif
 
 SkFILE* sk_fopen(const char path[], SkFILE_Flags flags) {
-#ifdef MINIBLINK_NOT_IMPLEMENTED
+//#ifdef MINIBLINK_NOT_IMPLEMENTED
     char    perm[4];
     char*   p = perm;
 
@@ -34,9 +34,9 @@ SkFILE* sk_fopen(const char path[], SkFILE_Flags flags) {
     //TODO: on Windows fopen is just ASCII or the current code page,
     //convert to utf16 and use _wfopen
     return (SkFILE*)::fopen(path, perm);
-#endif // MINIBLINK_NOT_IMPLEMENTED
-    DebugBreak();
-    return NULL;
+//#endif // MINIBLINK_NOT_IMPLEMENTED
+  //  DebugBreak();
+  //  return NULL;
 }
 
 char* sk_fgets(char* str, int size, SkFILE* f) {

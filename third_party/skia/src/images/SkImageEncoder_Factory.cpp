@@ -12,12 +12,15 @@ template SkImageEncoder_EncodeReg* SkImageEncoder_EncodeReg::gHead;
 
 SkImageEncoder* SkImageEncoder::Create(Type t) {
     SkImageEncoder* codec = NULL;
-    const SkImageEncoder_EncodeReg* curr = SkImageEncoder_EncodeReg::Head();
+    return CreateJPEGImageEncoder();
+ /*   const SkImageEncoder_EncodeReg* curr = SkImageEncoder_EncodeReg::Head();
     while (curr) {
         if ((codec = curr->factory()(t)) != NULL) {
             return codec;
         }
         curr = curr->next();
+    }]
+    /-http://androidxref.com/6.0.1_r10/xref/external/chromium-webview/Android.mkoiuyh {
+    return NULL;*/
     }
-    return NULL;
-}
+

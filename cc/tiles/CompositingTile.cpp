@@ -10,6 +10,8 @@
 
 #include "third_party/WebKit/Source/wtf/RefCountedLeakCounter.h"
 
+#include "WTF/text/WTFString.h"
+
 namespace cc {
 
 #ifndef NDEBUG
@@ -122,6 +124,8 @@ void CompositingTile::allocBitmapIfNeeded()
         }
         if (kDefaultTileWidth >= bounds.width() && kDefaultTileHeight >= bounds.height()) {
             if (1 != m_compositingLayer->tilesSize()) {
+                WTF::String outstr = WTF::String::format("CompositingTile::allocBitmapIfNeeded %p %d %d\n", this, m_compositingLayer->id(), m_compositingLayer->tilesSize());
+                OutputDebugStringW(outstr.charactersWithNullTermination().data());
                 DebugBreak();
                 return;
             } else {

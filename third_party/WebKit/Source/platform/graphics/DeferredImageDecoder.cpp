@@ -233,8 +233,11 @@ void DeferredImageDecoder::prepareLazyDecodedFrames()
     if (!s_enabled
         || !m_actualDecoder
         || !m_actualDecoder->isSizeAvailable()
-        || m_actualDecoder->filenameExtension() == "ico")
-        return;
+        || m_actualDecoder->filenameExtension() == "ico") { 
+        String outString = String::format("isSizeAvaibable is %d\n",m_actualDecoder->isDecodedSizeAvailable());
+        OutputDebugStringW(outString.charactersWithNullTermination().data());
+         return;
+     }
 
     activateLazyDecoding();
 

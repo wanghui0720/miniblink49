@@ -218,14 +218,15 @@ void LayerChangeActionDrawPropUpdata::appendDirtyLayer(cc_blink::WebLayerImpl* l
     m_layerIds.append(layer->id());
 
     DrawToCanvasProperties* prop = new DrawToCanvasProperties();
-    prop->copyDrawProperties(*layer->drawProperties(), layer->opacity());
-    prop->bounds = layer->bounds();
-    prop->position = layer->position();
-      prop->drawsContent = layer->drawsContent();
-    prop->masksToBounds = layer->masksToBounds();
-    prop->opaque = layer->opaque();
-    prop->maskLayerId = layer->maskLayerId();
-    prop->replicaLayerId = layer->replicaLayerId();
+   // prop->copyDrawProperties(*layer->drawProperties(), layer->opacity());
+   // prop->bounds = layer->bounds();
+   // prop->position = layer->position();
+   //   prop->drawsContent = layer->drawsContent();
+   // prop->masksToBounds = layer->masksToBounds();
+   // prop->opaque = layer->opaque();
+   // prop->maskLayerId = layer->maskLayerId();
+   // prop->replicaLayerId = layer->replicaLayerId();
+   layer->updataDrawToCanvasProperties(prop);
     m_props.append(prop);
 }
 
@@ -330,10 +331,11 @@ void LayerChangeActionBlend::run(LayerTreeHost* host)
 
 //////////////////////////////////////////////////////////////////////////
 
-LayerChangeActionUpdataTile::LayerChangeActionUpdataTile(int actionId, int layerId, int newIndexNumX, int newIndexNumY)
+LayerChangeActionUpdataTile::LayerChangeActionUpdataTile(int actionId, int layerId, int newIndexNumX, int newIndexNumY, DrawToCanvasProperties* prop)
     : LayerChangeOneLayer(actionId, LayerChangeTileUpdata, layerId)
     , m_newIndexNumX(newIndexNumX)
     , m_newIndexNumY(newIndexNumY)
+    , m_prop(prop)
 {
 //     String outString = String::format("LayerChangeActionUpdataTile::LayerChangeActionUpdataTile: actionId:%d layerId:%d, %d %d\n", actionId, layerId, newIndexNumX, newIndexNumY);
 //     OutputDebugStringW(outString.charactersWithNullTermination().data());
@@ -346,7 +348,8 @@ void LayerChangeActionUpdataTile::run(LayerTreeHost * host)
 
     CompositingLayer* layer = host->getCCLayerById(m_layerId);
     CHECK_LAYER_EMPTY(layer);
-    layer->updataTile(m_newIndexNumX, m_newIndexNumY);
+    layer->updataTile(m_newIndexNumX, m_newIndexNumY, m_prop);
+    delete m_prop;
 }
 
 //////////////////////////////////////////////////////////////////////////

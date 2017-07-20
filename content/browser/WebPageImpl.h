@@ -167,6 +167,7 @@ public:
 
     void copyToMemoryCanvasForUi();
 
+    friend class AutoRecordActions;
     bool m_useLayeredBuffer;
 
     blink::IntRect m_winodwRect;

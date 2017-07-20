@@ -254,7 +254,15 @@ cc::DrawProperties* WebLayerImpl::drawProperties()
 
 void WebLayerImpl::updataDrawToCanvasProperties(cc::DrawToCanvasProperties* prop)
 {
-    DebugBreak();
+    //DebugBreak();
+    prop->copyDrawProperties(*drawProperties(),opacity());
+    prop->bounds = bounds();
+    prop->position = position();
+    prop->drawsContent = drawsContent();
+    prop->masksToBounds = masksToBounds();
+    prop->opaque = opaque();
+    prop->maskLayerId = maskLayerId();
+    prop->replicaLayerId = replicaLayerId();
 }
 
 const SkMatrix44& WebLayerImpl::drawTransform() const

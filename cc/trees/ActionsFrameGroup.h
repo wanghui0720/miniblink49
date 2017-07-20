@@ -55,6 +55,7 @@ public:
     bool applyActions(bool needCheck);
     int64 curActionId() const;
     void incCurActionId();
+    size_t getFramesSize() const;
 
 private:
     WTF::Vector<ActionsFrame*> m_frames;
