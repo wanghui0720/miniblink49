@@ -9411,6 +9411,9 @@
     <ClCompile Include="..\..\third_party\WebKit\Source\platform\image-decoders\png\PNGImageDecoder.cpp">
       <Filter>third_party\Webkit\Source\platform\image-decoders\png</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\cc\trees\LayerTreeHostClient.h">
+      <Filter>cc\trees</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\public\platform\modules\app_banner\WebAppBannerClient.h">

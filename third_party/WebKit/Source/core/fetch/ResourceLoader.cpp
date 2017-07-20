@@ -144,7 +144,8 @@ void ResourceLoader::start()
 
     RELEASE_ASSERT(m_connectionState == ConnectionStateNew);
     m_connectionState = ConnectionStateStarted;
-
+    String str = String::format("url is %s",m_request.url().string().latin1().data());
+    OutputDebugString(str.charactersWithNullTermination().data());
     m_loader = adoptPtr(Platform::current()->createURLLoader());
     ASSERT(m_loader);
     WrappedResourceRequest wrappedRequest(m_request);

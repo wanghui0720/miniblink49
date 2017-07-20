@@ -459,6 +459,7 @@ ResourcePtr<Resource> ResourceFetcher::createResourceForRevalidation(const Fetch
 ResourcePtr<Resource> ResourceFetcher::createResourceForLoading(FetchRequest& request, const String& charset, const ResourceFactory& factory)
 {
     const String cacheIdentifier = getCacheIdentifier();
+    OutputDebugString(cacheIdentifier.charactersWithNullTermination().data());
     ASSERT(!memoryCache()->resourceForURL(request.resourceRequest().url(), cacheIdentifier));
 
     WTF_LOG(ResourceLoading, "Loading Resource for '%s'.", request.resourceRequest().url().elidedString().latin1().data());

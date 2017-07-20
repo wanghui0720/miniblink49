@@ -75,6 +75,8 @@ void ImageResource::preCacheDataURIImage(const FetchRequest& request, ResourceFe
 
 ResourcePtr<ImageResource> ImageResource::fetch(FetchRequest& request, ResourceFetcher* fetcher)
 {
+    String outString = String::format("image's url is %s\n", request.resourceRequest().url().string().latin1().data());
+    OutputDebugStringW(outString.charactersWithNullTermination().data());
     if (request.resourceRequest().requestContext() == WebURLRequest::RequestContextUnspecified)
         request.mutableResourceRequest().setRequestContext(WebURLRequest::RequestContextImage);
     if (fetcher->context().pageDismissalEventBeingDispatched()) {

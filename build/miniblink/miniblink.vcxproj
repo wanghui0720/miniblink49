@@ -549,6 +549,7 @@
     <ClCompile Include="..\..\cc\trees\ActionsFrameGroup.cpp" />
     <ClCompile Include="..\..\cc\trees\LayerSorter.cc" />
     <ClCompile Include="..\..\cc\trees\LayerTreeHost.cpp" />
+    <ClCompile Include="..\..\cc\trees\LayerTreeHostClient.h" />
     <ClCompile Include="..\..\cef\libcef\browser\CefBrowserHostImpl.cpp" />
     <ClCompile Include="..\..\cef\libcef\browser\CefBrowserInfoManager.cpp" />
     <ClCompile Include="..\..\cef\libcef\browser\CefContext.cpp" />

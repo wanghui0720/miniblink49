@@ -10,6 +10,7 @@
 
 #include "cc/trees/LayerTreeHost.h"
 //#include "cc/trees/LayerTreeHostUiThreadClient.h"
+#include "cc/trees/LayerTreeHostClient.h"
 #include "skia/ext/platform_canvas.h"
 
 namespace cc {
@@ -39,7 +40,7 @@ class PlatformEventHandler;
 class NavigationController;
 class PopupMenuWin;
 
-class WebPageImpl : public blink::WebViewClient, public cc::LayerTreeHostUiThreadClient {
+class WebPageImpl : public blink::WebViewClient, public cc::LayerTreeHostUiThreadClient, public cc::LayerTreeHostClient {
 public:
     WebPageImpl();
     ~WebPageImpl();
@@ -58,31 +59,36 @@ public:
         const blink::WebWindowFeatures& features,
         const blink::WebString& name,
         blink::WebNavigationPolicy policy,
-        bool suppressOpener) OVERRIDE;
+        bool suppressOpener) override;
 
     void init(WebPage* pagePtr, HWND hWnd);
     void close();
     
     // WebViewClient
-    virtual void didInvalidateRect(const blink::WebRect&) OVERRIDE;
-    virtual void didAutoResize(const blink::WebSize& newSize) OVERRIDE;
-    virtual void didUpdateLayout() OVERRIDE;
-    virtual void didUpdateLayoutSize(const blink::WebSize& newSize) OVERRIDE;
-    virtual void scheduleAnimation() OVERRIDE;
-    virtual void initializeLayerTreeView() OVERRIDE;
-    virtual blink::WebWidget* createPopupMenu(blink::WebPopupType) OVERRIDE;
-    virtual blink::WebStorageNamespace* createSessionStorageNamespace() OVERRIDE;
-    virtual blink::WebString acceptLanguages() OVERRIDE;
-    virtual blink::WebScreenInfo screenInfo() OVERRIDE;
+    virtual void didInvalidateRect(const blink::WebRect&) override;
+    virtual void didAutoResize(const blink::WebSize& newSize) override;
+    virtual void didUpdateLayout() override;
+    virtual void didUpdateLayoutSize(const blink::WebSize& newSize) override;
+    virtual void scheduleAnimation() override;
+    virtual void initializeLayerTreeView() override;
+    virtual blink::WebWidget* createPopupMenu(blink::WebPopupType) override;
+    virtual blink::WebStorageNamespace* createSessionStorageNamespace() override;
+    virtual blink::WebString acceptLanguages() override;
+    virtual blink::WebScreenInfo screenInfo() override;
     // Editing --------------------------------------------------------
-    virtual bool handleCurrentKeyboardEvent() OVERRIDE;
+    virtual bool handleCurrentKeyboardEvent() override;
 
     // Return a compositing view used for this widget. This is owned by the
     // WebWidgetClient.
-    virtual blink::WebLayerTreeView* layerTreeView() OVERRIDE;
-    virtual void didChangeCursor(const blink::WebCursorInfo&) OVERRIDE;
+    virtual blink::WebLayerTreeView* layerTreeView() override;
+    virtual void didChangeCursor(const blink::WebCursorInfo&) override;
     virtual void closeWidgetSoon() override;
     
+
+    //LayerTreeHostClient
+    virtual void onLayerTreeDirty() override;
+    virtual void onLayerTreeInvalidateRect(const blink::IntRect& r) override;
+    virtual void onLayerTreeSetNeedsCommit() override;
     void testPaint();
 
     void beginMainFrame();
@@ -123,7 +129,7 @@ public:
     void setNeedsCommitAndNotLayout();
     void clearNeedsCommit();
     bool isDrawDirty();
-    void onLayerTreeDirty();
+   // void onLayerTreeDirty();
 
     virtual void paintToMemoryCanvasInUiThread(SkCanvas* canvas, const blink::IntRect& paintRect) override;
     

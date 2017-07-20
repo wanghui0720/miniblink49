@@ -33,7 +33,7 @@ namespace cc {
 
 LayerTreeHost* gLayerTreeHost = nullptr;
 
-LayerTreeHost::LayerTreeHost(blink::WebViewClient* webViewClient, LayerTreeHostUiThreadClient* uiThreadClient)
+LayerTreeHost::LayerTreeHost(LayerTreeHostClient* hostClient, LayerTreeHostUiThreadClient* uiThreadClient)
 {
     m_rootLayer = nullptr;
     m_rootCCLayer = nullptr;
@@ -44,9 +44,9 @@ LayerTreeHost::LayerTreeHost(blink::WebViewClient* webViewClient, LayerTreeHostU
     m_pageScaleFactor = 1.0f;
     m_minimum = 1.0f;
     m_maximum = 1.0f;
-    m_webViewClient = webViewClient;
+    m_hostClient = hostClient;
     m_uiThreadClient = uiThreadClient;
-    m_needsFullTreeSync = true;
+    //m_needsFullTreeSync = true;
     m_needTileRender = true;
     m_layerTreeDirty = true;
     m_3dNodesCount = 0;
@@ -252,13 +252,13 @@ void LayerTreeHost::setWebGestureCurveTarget(blink::WebGestureCurveTarget* webGe
 // void LayerTreeHost::setNeedsCommit() // 暂时被废弃，由setLayerTreeDirty代替
 // {
 //     // 由光栅化线程来提起脏区域，所以这里直接指定需要开始下一帧，光删化完毕后由光栅化线程通过requestRepaint发起重绘
-//     m_webViewClient->scheduleAnimation();
+//     m_hostClient->scheduleAnimation();
 // }
 
 void LayerTreeHost::setLayerTreeDirty()
 {
     m_layerTreeDirty = true;
-    m_webViewClient->didUpdateLayout();
+    m_hostClient->onLayerTreeDirty();
 }
 
 bool LayerTreeHost::isLayerTreeDirty() const
@@ -271,24 +271,31 @@ bool LayerTreeHost::isLayerTreeDirty() const
 //     m_webViewClient->didUpdateLayout();
 // }
 
-void LayerTreeHost::setNeedsFullTreeSync()
+/*void LayerTreeHost::setNeedsFullTreeSync()
 {
     m_needsFullTreeSync = true;
     m_webViewClient->scheduleAnimation();
-}
+}*/
 
+const double kMinDetTime = 0.1;
 bool LayerTreeHost::canRecordActions() const
 {
     if(RasterTaskWorkerThreadPool::shared()->getPendingRasterTaskNum() > 3)
         return false;
     if(!m_actionsFrameGroup || m_actionsFrameGroup->getFramesSize() > 10)
         return false;
+
+    double lastRecordTime = WTF::monotonicallyIncreasingTime();
+    double detTime = lastRecordTime - m_lastRecordTime;
+    if(detTime < kMinDetTime)
+        return false;
+    m_lastRecordTime = lastRecordTime;
     return true;
 }
 
 void LayerTreeHost::requestRepaint(const blink::IntRect& repaintRect)
 {
-    m_webViewClient->didInvalidateRect(blink::WebRect(repaintRect));
+    m_hostClient->onLayerTreeInvalidateRect(blink::WebRect(repaintRect));
 }
 
 void LayerTreeHost::requestDrawFrameLocked(DirtyLayers* dirtyLayers, Vector<Tile*>* tilesToUIThreadRelease)
@@ -320,7 +327,8 @@ void LayerTreeHost::appendLayerChangeAction(LayerChangeAction* action)
 {
     m_actionsFrameGroup->saveLayerChangeAction(action);
 
-    setNeedsAnimate();
+    setLayerTreeDirty();
+//    setNeedsAnimate();
 
 //     String outString = String::format("LayerTreeHost::appendLayerChangeAction: %d %d \n", (int)(action->type()), (int)action->actionId());
 //     OutputDebugStringW(outString.charactersWithNullTermination().data());
@@ -373,7 +381,7 @@ static blink::WebDoublePoint getEffectiveTotalScrollOffset(cc_blink::WebLayerImp
     return offset;
 }
 
-static void updateLayer(cc_blink::WebLayerImpl* layer, SkCanvas* canvas, const blink::IntRect& clip)
+/*static void updateLayer(cc_blink::WebLayerImpl* layer, SkCanvas* canvas, const blink::IntRect& clip)
 {
     blink::WebFloatPoint position = layer->position();
     blink::WebSize size = layer->bounds();
@@ -387,9 +395,9 @@ static void updateLayer(cc_blink::WebLayerImpl* layer, SkCanvas* canvas, const b
 //     OutputDebugStringW(out.charactersWithNullTermination().data());
 
     layer->updataAndPaintContents(canvas, childClip);
-}
+}*/
 
-static void updateLayerChildren(cc_blink::WebLayerImpl* layer, SkCanvas* canvas, const blink::IntRect& clip, bool needsFullTreeSync)
+/*static void updateLayerChildren(cc_blink::WebLayerImpl* layer, SkCanvas* canvas, const blink::IntRect& clip, bool needsFullTreeSync)
 {
     blink::WebFloatPoint currentLayerPosition = layer->position();
     blink::WebDoublePoint effectiveTotalScrollOffset = getEffectiveTotalScrollOffset(layer);
@@ -449,16 +457,16 @@ static void updateLayerChildren(cc_blink::WebLayerImpl* layer, SkCanvas* canvas,
 
     if (!combinedTransform.isIdentity())
         canvas->restore();
-}
+}*/
 
-void LayerTreeHost::updateLayers(SkCanvas* canvas, const blink::IntRect& clip, bool needsFullTreeSync)
+/*void LayerTreeHost::updateLayers(SkCanvas* canvas, const blink::IntRect& clip, bool needsFullTreeSync)
 {
     if (!m_rootLayer)
         return;
 
     updateLayerChildren(m_rootLayer, canvas, clip, m_needsFullTreeSync || needsFullTreeSync);
     m_needsFullTreeSync = false;
-}
+}*/
 
 static void flattenTo2d(SkMatrix44& matrix)
 {
@@ -482,7 +490,7 @@ void LayerTreeHost::recordDraw()
     m_rootLayer->recordDrawChildren(taskGroup, 0);
     taskGroup->endPostRasterTask();
 
-    m_needsFullTreeSync = false;
+  //  m_needsFullTreeSync = false;
 }
 
 void printTrans(const SkMatrix44& transform, int deep)
@@ -639,7 +647,7 @@ void LayerTreeHost::setRootLayer(const blink::WebLayer& layer)
 
     getRootCCLayer();
 
-    setNeedsFullTreeSync();
+  //  setNeedsFullTreeSync();
 }
 
 CompositingLayer* LayerTreeHost::getRootCCLayer()
@@ -731,7 +739,7 @@ void LayerTreeHost::startPageScaleAnimation(const blink::WebPoint& destination, 
 
 void LayerTreeHost::setNeedsAnimate()
 {
-    m_webViewClient->scheduleAnimation();
+    m_hostClient->onLayerTreeSetNeedsCommit();
 }
 
 void LayerTreeHost::finishAllRendering()
@@ -889,13 +897,13 @@ void LayerTreeHost::drawFrameInCompositeThread()
     //m_lastDrawTime = lastDrawTime;
     double lastCompositeTime = WTF::monotonicallyIncreasingTime();
     double detTime = lastCompositeTime - m_lastCompositeTime;
-    m_lastCompositeTime = lastCompositeTime;
-     if (detTime < 0.005) { // 如果刷新频率太快，缓缓再画
+    //m_lastCompositeTime = lastCompositeTime;
+     if (detTime < kMinDetTime) { // 如果刷新频率太快，缓缓再画
          requestDrawFrameToRunIntoCompositeThread();
          atomicDecrement(&m_drawFrameFinishCount);
          return;
      }
-
+     m_lastCompositeTime = lastCompositeTime;
     //bool needClearCommit = preDrawFrame(); // 这里也会发起Commit
     bool frameReady = preDrawFrame();
     if(!frameReady) {
@@ -960,13 +968,15 @@ void LayerTreeHost::WrapSelfForUiThread::paintInUiThread()
     
     double lastPaintTime = WTF::monotonicallyIncreasingTime();
     double detTime = lastPaintTime - m_host->m_lastPaintTime;
-    m_host->m_lastPaintTime = lastPaintTime;
-    if (detTime < 0.005) {
+    
+    if (detTime < kMinDetTime) {
         m_host->requestPaintToMemoryCanvasInUiThread(IntRect());
         endPaint();
         return;
     }
-        for (size_t i = 0; i < m_host->m_dirtyRectsForUi.size(); ++i) {
+
+    m_host->m_lastPaintTime = lastPaintTime;
+    for (size_t i = 0; i < m_host->m_dirtyRectsForUi.size(); ++i) {
         m_host->paintToMemoryCanvasInUiThread(m_host->m_dirtyRectsForUi[i]);
     }
         endPaint();
