@@ -270,6 +270,8 @@ ScrollGranularity Scrollbar::pressedPartScrollGranularity()
 
 void Scrollbar::moveThumb(int pos, bool draggingDocument)
 {
+ //   String str = String::format("moveThumb draggingDocument is %d\n", draggingDocument);
+ //   OutputDebugString(str.charactersWithNullTermination().data());
     if (!m_scrollableArea)
         return;
 

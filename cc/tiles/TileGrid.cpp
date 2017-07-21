@@ -361,7 +361,8 @@ void TileGrid::updateTilePriorityAndCommitInvalidate2(Vector<size_t>* hasBitmapT
     }
 
     blink::IntRect pos = getInWillBeShowedAreaPos();
-
+  //  String willBeShowedArea = String::format("willBeShowdArea is (%d,%d,%d,%d)\n", pos.x(), pos.y(), pos.width(), pos.height());
+  //  OutputDebugStringW(willBeShowedArea.charactersWithNullTermination().data());
     for (int i = pos.x(); i < pos.maxX(); ++i) {
         for (int j = pos.y(); j < pos.maxY(); ++j) {
             if (i + m_numTileX * j >= (int)m_tiles->size())
@@ -511,8 +512,13 @@ void TileGrid::markTileDirtyExceptNeedBeShowedArea(const blink::IntRect& dirtyRe
 const size_t kMaxRasterTaskNum = 3;
 void TileGrid::invalidate(const blink::IntRect& rect, bool directSaveToDirtyRects)
 {
+   
     blink::IntRect dirtyRect = rect;
     blink::IntRect layerRect(blink::IntPoint(), (blink::IntSize)m_layer->bounds());
+    String str = String::format("%s dirtyRect (%d, %d, %d, %d)  layerRect (%d, %d, %d, %d)\n"
+        ,__FUNCTION__, dirtyRect.x(), dirtyRect.y(), dirtyRect.width(), dirtyRect.height()
+        ,layerRect.x(), layerRect.y(), layerRect.width(), layerRect.height());
+    OutputDebugStringW(str.charactersWithNullTermination().data());
     dirtyRect.intersect(layerRect);
     
     bool isTooManyDirtyRects = m_dirtyRects.size() > kMaxRasterTaskNum;
@@ -604,8 +610,10 @@ void TileGrid::applyDirtyRectsToRaster(blink::WebContentLayerClient* client, Ras
 
     // TODO 裁剪超出可绘制区域，并合并脏矩形
     mergeDirtyRectAndClipToCanBeShowedAreaIfNeeded(true);
-    
+   
     for (size_t i = 0; i < m_dirtyRects.size(); ++i) {
+        String str = String::format("m_dirtyRects.size is %d\n dirtyRect[%d](%d,%d,%d,%d)", m_dirtyRects.size(),i, m_dirtyRects[i].x(), m_dirtyRects[i].y(), m_dirtyRects[i].width(), m_dirtyRects[i].height());
+        OutputDebugStringW(str.charactersWithNullTermination().data());
         blink::IntRect dirtyRect = m_dirtyRects[i];
         if (0 == dirtyRect.width() || 0 == dirtyRect.height())
             continue;
@@ -645,6 +653,8 @@ void TileGrid::applyDirtyRectsToRaster(blink::WebContentLayerClient* client, Ras
                     tile->increaseUseingRate();
 
                     // 发去光栅化;
+                    String rastTileInfo = String::format("willRasteredTiles.size is %d\n  append tile(%d,%d)", willRasteredTiles->size(), tile->xIndex(), tile->yIndex());
+                    OutputDebugStringW(rastTileInfo.charactersWithNullTermination().data());
                     willRasteredTiles->append(getIndexByTile(tile), tile->xIndex(), tile->yIndex());
                 }
             }

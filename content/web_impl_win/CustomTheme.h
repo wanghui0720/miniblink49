@@ -153,7 +153,8 @@ namespace {
 
     const unsigned int thumb_inactive_color_ = (0xeaeaea);
     const unsigned int thumb_active_color_ = (0xf4f4f4);
-    const unsigned int track_color_ = (0xd3d3d3);
+    //const unsigned int track_color_ = (0xd3d3d3);
+    const unsigned int track_color_ = (0xd9d919);
 
 
     // Get lightness adjusted color.

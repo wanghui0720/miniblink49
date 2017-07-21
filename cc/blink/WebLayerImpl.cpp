@@ -188,6 +188,8 @@ cc::LayerTreeHost* WebLayerImpl::layerTreeHost() const
 
 static void applyLayerActions(cc::LayerTreeHost* host, WTF::Vector<cc::LayerChangeAction*>* actions)
 {
+    String str = String::format("actions's size is %d\n", actions->size());
+    OutputDebugStringW(str.charactersWithNullTermination().data());
     for (size_t i = 0; i < actions->size(); ++i) {
         cc::LayerChangeAction* action = actions->at(i);
         ASSERT(-1 == action->actionId());

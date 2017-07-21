@@ -249,6 +249,8 @@ void CompositingLayer::cleanupUnnecessaryTile(const WTF::Vector<TileActionInfo*>
 void CompositingLayer::blendToTiles(TileActionInfoVector* willRasteredTiles, const SkBitmap& bitmap, const blink::IntRect& dirtyRect)
 {
     const Vector<TileActionInfo*>& infos = willRasteredTiles->infos();
+   // String str = String::format("%s  info.size is %d\n",__FUNCTION__, infos.size());
+  //  OutputDebugStringW(str.charactersWithNullTermination().data());
     for (size_t i = 0; i < infos.size(); ++i) {
         TileActionInfo* info = infos[i];
         CompositingTile* tile = getTileByXY(info->xIndex, info->yIndex);
@@ -297,7 +299,8 @@ void CompositingLayer::blendToTile(CompositingTile* tile, const SkBitmap& bitmap
 
     SkCanvas canvas(*tile->bitmap());
     canvas.drawBitmapRect(bitmap, nullptr, SkRect::MakeFromIRect(dst), &paint);
-
+ //   String jpg = String::format("E:\\image\\%d_%d.jpg", tile->xIndex(), tile->yIndex());
+ //   bool success = SkImageEncoder::EncodeFile(jpg.latin1().data(), *tile->bitmap(), SkImageEncoder::kJPEG_Type, 100);
 #if 0 // debug
     static bool s_startDump = false;
     if (s_startDump) {
@@ -473,8 +476,7 @@ void CompositingLayer::drawToCanvas(LayerTreeHost* host, blink::WebCanvas* canva
        // context->fillRect(tilePostion, 0x00000000 | (::GetTickCount() + rand()));
 #endif
         canvas->drawBitmapRect(*tile->bitmap(), nullptr, SkRect::MakeFromIRect(dst), &paint); // weolar
-        String jpg = String::format("E:\\image\\%d.jpg",i);
-        bool success = SkImageEncoder::EncodeFile(jpg.latin1().data(),*tile->bitmap(),SkImageEncoder::kJPEG_Type, 100);
+
     }
 }
 

@@ -165,6 +165,8 @@ void ActionsFrameGroup::beginRecordActions()
 
     m_curFrame = new ActionsFrame(m_newestActionId + 1);
     m_frames.append(m_curFrame);
+//    String str = String::format("frame size is %d\n", m_frames.size());
+ //   OutputDebugStringW(str.charactersWithNullTermination().data());
 }
 
 void ActionsFrameGroup::endRecordActions()
@@ -182,6 +184,8 @@ void ActionsFrameGroup::endRecordActions()
     //ASSERT(m_curFrame->endId() == m_newestActionId);
     m_curFrame->setEndId(m_newestActionId);
     m_curFrame = nullptr;
+ //   String str = String::format("frame size is %d\n", m_frames.size());
+ //   OutputDebugStringW(str.charactersWithNullTermination().data());
 }
 
 int64 ActionsFrameGroup::genActionId()

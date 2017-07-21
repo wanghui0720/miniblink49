@@ -480,6 +480,8 @@ bool BitmapImage::shouldAnimate()
 
 void BitmapImage::startAnimation(CatchUpAnimation catchUpIfNecessary)
 {
+//    String str = String::format("%s framecount is %d\n", __FUNCTION__, frameCount());
+ //   OutputDebugStringW(str.charactersWithNullTermination().data());
     if (m_frameTimer || !shouldAnimate() || frameCount() <= 1)
         return;
 

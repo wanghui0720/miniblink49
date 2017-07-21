@@ -37,10 +37,10 @@ public:
     virtual void updataAndPaintContents(blink::WebCanvas*, const blink::IntRect& clip) override;
     virtual void recordDraw(cc::RasterTaskGroup* taskGroup) override;
     virtual void drawToCanvas(blink::WebCanvas* canvas, const blink::IntRect& clip) override;
+    virtual WebLayerImplClient::Type type() const override { return ContentLayerType; }
 
     void paintContents(blink::WebCanvas* canvas, const blink::IntRect& clip);
 
-    virtual WebLayerImplClient::Type type() const OVERRIDE { return ContentLayerType; }
 
 protected:
     virtual ~WebContentLayerImpl();

@@ -113,8 +113,8 @@ WebPageImpl::WebPageImpl()
 #endif
     m_needsCommit = 0;
     m_commitCount = 0;
-    m_needsLayout = 1;
-    m_layerDirty = 1;
+    m_needsLayout = 0;
+    m_layerDirty = 0;
     m_lastFrameTimeMonotonic = 0;
     m_popupHandle = nullptr;
     m_postCloseWidgetSoonMessage = false;
@@ -248,7 +248,6 @@ public:
             m_host->recordDraw();
             m_host->endRecordActions();
         }
-
         m_page->m_lastFrameTimeMonotonic = m_lastFrameTimeMonotonic;
     }
 
@@ -631,7 +630,7 @@ bool WebPageImpl::fireTimerEvent()
 {
     CHECK_FOR_REENTER(false);
         
-    beginMainFrame();
+ //   beginMainFrame();
     return false;
 }
 

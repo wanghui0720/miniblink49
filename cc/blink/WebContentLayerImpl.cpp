@@ -25,7 +25,7 @@ namespace cc_blink {
 WebContentLayerImpl::WebContentLayerImpl(blink::WebContentLayerClient* client)
     : m_client(client)
     //, m_recordDrawHelp(new cc::RecordDrawHelp())
-{
+{   
     m_layer = new WebLayerImpl(this);
     m_layer->setDrawsContent(true);
     m_recordDrawHelp = nullptr;
