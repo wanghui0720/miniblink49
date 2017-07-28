@@ -64,7 +64,9 @@ WebThreadImpl::WebThreadImpl(const char* name)
 
     unsigned threadIdentifier = 0;
     m_threadHandle = reinterpret_cast<HANDLE>(_beginthreadex(0, 0, WebThreadImplThreadEntryPoint, this, 0, &threadIdentifier));
- 
+    
+    String str = String::format("%s thread id is %d name is %s\n", __FUNCTION__, threadIdentifier, m_name);
+    OutputDebugStringW(str.charactersWithNullTermination().data());
     while (!m_hadThreadInit) {
         Sleep(20);
     };

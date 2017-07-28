@@ -117,6 +117,8 @@ void LayoutImage::updateIntrinsicSizeIfNeeded(const LayoutSize& newSize)
 {
     if (m_imageResource->errorOccurred() || !m_imageResource->hasImage())
         return;
+    String str = String::format("image width : %d, height : %d\n", newSize.width(), newSize.height());
+    OutputDebugStringW(str.charactersWithNullTermination().data());
     setIntrinsicSize(newSize);
 }
 

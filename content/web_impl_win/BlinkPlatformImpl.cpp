@@ -178,7 +178,7 @@ BlinkPlatformImpl::BlinkPlatformImpl()
     m_firstMonotonicallyIncreasingTime = currentTimeImpl(); // (GetTickCount() / 1000.0);
     ::InitializeCriticalSection(m_lock);
 
-    setUserAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
+    setUserAgent("Mozilla/5.0 (Linux; Android 6.0.1; NP602SI Build/MMB29M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.61 Mobile Safari/537.36");
 
 #ifdef _DEBUG
     myFree = (MyFree)ReplaceFuncAndCopy(free, newFree);

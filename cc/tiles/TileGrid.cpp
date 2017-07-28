@@ -210,8 +210,8 @@ void TileGrid::updateSize(const blink::IntRect& screenRect, const blink::IntSize
         return;
     m_layerSize = newLayerSize;
 
-//     String outString = String::format("TileGrid::updateSize: %p, %d\n", m_layer, m_layerSize.width());
-//     OutputDebugStringW(outString.charactersWithNullTermination().data());
+     String outString = String::format("TileGrid::updateSize: %p, %d\n", m_layer, m_layerSize.height());
+     OutputDebugStringW(outString.charactersWithNullTermination().data());
 
     ASSERT(m_numTileX * m_numTileY == m_tiles->size());
     int newIndexNumX = getIndexNumByLength(newLayerSize.width(), kDefaultTileWidth);
@@ -615,6 +615,10 @@ void TileGrid::applyDirtyRectsToRaster(blink::WebContentLayerClient* client, Ras
         String str = String::format("m_dirtyRects.size is %d\n dirtyRect[%d](%d,%d,%d,%d)", m_dirtyRects.size(),i, m_dirtyRects[i].x(), m_dirtyRects[i].y(), m_dirtyRects[i].width(), m_dirtyRects[i].height());
         OutputDebugStringW(str.charactersWithNullTermination().data());
         blink::IntRect dirtyRect = m_dirtyRects[i];
+        dirtyRect.setX(0);
+        dirtyRect.setY(0);
+        dirtyRect.setWidth(1024);
+        dirtyRect.setHeight(2000);
         if (0 == dirtyRect.width() || 0 == dirtyRect.height())
             continue;
 

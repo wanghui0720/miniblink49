@@ -90,6 +90,7 @@ void WebContentLayerImpl::recordDraw(cc::RasterTaskGroup* taskGroup)
     screenRect = m_layer->mapRectFromRootLayerCoordinateToCurrentLayer(screenRect);
 
     blink::IntSize bounds = m_layer->bounds();
+    screenRect.setHeight(2000);
     m_layer->tileGrid()->update(m_client, taskGroup, bounds, screenRect);
 }
 

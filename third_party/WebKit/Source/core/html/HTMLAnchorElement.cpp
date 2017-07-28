@@ -48,6 +48,8 @@ HTMLAnchorElement::HTMLAnchorElement(const QualifiedName& tagName, Document& doc
     , m_cachedVisitedLinkHash(0)
     , m_wasFocusedByMouse(false)
 {
+    setIsLink(true);
+    setAttribute(hrefAttr, "#");
 }
 
 PassRefPtrWillBeRawPtr<HTMLAnchorElement> HTMLAnchorElement::create(Document& document)

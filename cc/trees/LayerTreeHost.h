@@ -140,7 +140,7 @@ public:
     void popRasteringIndex();
 
     bool canRecordActions() const;
-    void beginRecordActions();
+    void beginRecordActions(bool isComefromMainframe);
     void endRecordActions();
 
     int64 genActionId();

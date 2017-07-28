@@ -280,9 +280,9 @@ bool LayerTreeHost::isLayerTreeDirty() const
 const double kMinDetTime = 0.1;
 bool LayerTreeHost::canRecordActions() const
 {
-    if(RasterTaskWorkerThreadPool::shared()->getPendingRasterTaskNum() > 3)
-        return false;
-    if(!m_actionsFrameGroup || m_actionsFrameGroup->getFramesSize() > 10)
+    if(!m_actionsFrameGroup->containComefromMainframeLocked())
+        return true;
+    if(RasterTaskWorkerThreadPool::shared()->getPendingRasterTaskNum() > 2)
         return false;
 
     double lastRecordTime = WTF::monotonicallyIncreasingTime();
@@ -313,9 +313,9 @@ static bool compareAction(LayerChangeAction*& left, LayerChangeAction*& right)
     return left->actionId() < right->actionId();
 }
 
-void LayerTreeHost::beginRecordActions()
+void LayerTreeHost::beginRecordActions(bool isComefromMainframe)
 {
-    m_actionsFrameGroup->beginRecordActions();
+    m_actionsFrameGroup->beginRecordActions(isComefromMainframe);
 }
 
 void LayerTreeHost::endRecordActions()
@@ -342,7 +342,7 @@ int64 LayerTreeHost::genActionId()
 bool LayerTreeHost::preDrawFrame()
 {
     //atomicIncrement(&m_drawFrameCount);
-    return applyActions(false);
+    return applyActions(m_isDestroying);
 }
 
 bool LayerTreeHost::applyActions(bool needCheck)
@@ -898,7 +898,7 @@ void LayerTreeHost::drawFrameInCompositeThread()
     double lastCompositeTime = WTF::monotonicallyIncreasingTime();
     double detTime = lastCompositeTime - m_lastCompositeTime;
     //m_lastCompositeTime = lastCompositeTime;
-     if (detTime < kMinDetTime) { // 如果刷新频率太快，缓缓再画
+     if (detTime < kMinDetTime && !m_isDestroying) { // 如果刷新频率太快，缓缓再画
          requestDrawFrameToRunIntoCompositeThread();
          atomicDecrement(&m_drawFrameFinishCount);
          return;
@@ -907,6 +907,7 @@ void LayerTreeHost::drawFrameInCompositeThread()
     //bool needClearCommit = preDrawFrame(); // 这里也会发起Commit
     bool frameReady = preDrawFrame();
     if(!frameReady) {
+        ASSERT(!m_isDestroying);
         requestDrawFrameToRunIntoCompositeThread();
         atomicDecrement(&m_drawFrameFinishCount);
         return;

@@ -5486,6 +5486,7 @@
     <ClInclude Include="..\..\content\browser\NavigationController.h" />
     <ClInclude Include="..\..\content\browser\PlatformEventHandler.h" />
     <ClInclude Include="..\..\content\browser\PopupMenuWin.h" />
+    <ClInclude Include="..\..\content\browser\PopupMenuWinClient.h" />
     <ClInclude Include="..\..\content\browser\SharedTimerWin.h" />
     <ClInclude Include="..\..\content\browser\WebFrameClientImpl.h" />
     <ClInclude Include="..\..\content\browser\WebPage.h" />

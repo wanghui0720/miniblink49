@@ -21647,6 +21647,9 @@
     <ClInclude Include="..\..\node\src\env-inl.h">
       <Filter>node\src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\content\browser\PopupMenuWinClient.h">
+      <Filter>content\browser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\third_party\WebKit\Source\devtools\front_end\Images\src\optimize_png.hashes">

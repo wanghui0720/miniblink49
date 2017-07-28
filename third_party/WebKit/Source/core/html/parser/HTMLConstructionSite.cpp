@@ -620,6 +620,7 @@ void HTMLConstructionSite::insertHTMLFormElement(AtomicHTMLToken* token, bool is
 void HTMLConstructionSite::insertHTMLElement(AtomicHTMLToken* token)
 {
     RefPtrWillBeRawPtr<HTMLElement> element = createHTMLElement(token);
+    RefPtrWillBeRawPtr<ContainerNode> currentElement = currentNode();
     attachLater(currentNode(), element);
     m_openElements.push(HTMLStackItem::create(element.release(), token));
 }
